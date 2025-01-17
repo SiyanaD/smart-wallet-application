@@ -4,6 +4,7 @@ import app.exception.DomainException;
 import app.subscription.service.SubscriptionService;
 import app.user.model.User;
 import app.user.model.UserRole;
+import app.user.property.UsersProperty;
 import app.user.repository.UserRepository;
 import app.wallet.service.WalletService;
 import app.web.dto.LoginRequest;
@@ -11,6 +12,7 @@ import app.web.dto.RegisterRequest;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,18 +24,24 @@ import java.util.Optional;
 @Service
 
 public class UserService {
+
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final SubscriptionService subscriptionService;
     private final WalletService walletService;
 
+    private final UsersProperty usersProperty;
+
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SubscriptionService subscriptionService, WalletService walletService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SubscriptionService subscriptionService,
+                       WalletService walletService, UsersProperty usersProperty) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
 
         this.subscriptionService = subscriptionService;
         this.walletService = walletService;
+        this.usersProperty = usersProperty;
     }
 
     public User login(LoginRequest loginRequest){
@@ -78,8 +86,8 @@ public class UserService {
         return User.builder()
                 .username(registerRequest.getUserName())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .role(UserRole.USER)
-                .isActive(true)
+                .role(usersProperty.getDefaultRole())
+                .isActive(usersProperty.isDefaultAccountState())
                 .country(registerRequest.getCountry())
                 .createdOn(LocalDateTime.now())
                 .updatedOn(LocalDateTime.now())
