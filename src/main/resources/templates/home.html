@@ -100,33 +100,37 @@
     <div class="single-section-box home-profile-information">
       <div class="profile-header">
         <img src="https://avatars.githubusercontent.com/u/122465228?v=4" alt="Profile Picture" class="profile-avatar">
-        <h2 class="profile-name">Mandarin0016</h2>
+        <h2 class="profile-name" th:text="${user.getUsername()}"></h2>
         <div class="profile-status-role-container">
-          <p class="active-profile">ACTIVE</p>
+          <p th:if="${user.isActive()}"class ="active-profile">ACTIVE</p>
+          <p th:if="${!user.isActive()}"class ="active-profile">INACTIVE</p>
         </div>
         <div class="details-section">
           <div class="details-section-container">
             <strong>User id: </strong>
-            <p>55b23a12-71a1-4ccd-918d-08b2b09409b0</p>
+            <p th:text="${user.id}"></p>
           </div>
         </div>
       </div>
       <div class="profile-info">
         <div class="details-section-container">
           <strong>Username: </strong>
-          <p>ivan123</p>
+          <p th:text="${user.getUsername()}"></p>
         </div>
         <div class="details-section-container">
           <strong>Email: </strong>
-          <p>abv@bg</p>
+          <p th:text = "${#strings.isEmpty(user.email)? 'Edit your profile and add email'
+          : user.email }"></p>
         </div>
         <div class="details-section-container">
           <strong>Joined: </strong>
-          <p>09 Dec 2024 21:39</p>
+          <p th:text ="${#temporals.format(user.getCreatedOn, 'dd MMM YYYY HH:mm')}"></p>
+<!--          09 Dec 2024 21:39-->
         </div>
         <div class="details-section-container">
           <strong>Country: </strong>
-          <p>Bulgaria</p>
+          <p th:text="${#strings.capitalize(#strings.toLowerCase(user.country))}"></p>
+           <!--Bulgaria-->
         </div>
       </div>
       <a href="/users/profile" class="profile-actions-button">
