@@ -19,6 +19,7 @@ public class Wallet {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     @ManyToOne
     private User owner;
 
@@ -34,6 +35,7 @@ public class Wallet {
 
     @Column(nullable = false)
     private LocalDateTime createdOn;
+
     @Column(nullable = false)
     private LocalDateTime updatedOn;
 

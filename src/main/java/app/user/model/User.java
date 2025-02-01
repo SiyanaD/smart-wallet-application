@@ -60,4 +60,6 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "owner")
     private List<Wallet> wallets=new ArrayList<>();
+
+
 }

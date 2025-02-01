@@ -29,6 +29,7 @@ public class Subscription {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private SubscriptionPeriod period;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private SubscriptionType type;

@@ -24,14 +24,19 @@ public class Transaction {
 
     @Column(nullable = false)
     private String sender;
+
     @Column(nullable = false)
     private String receiver;
+
     @Column(nullable = false)
     private BigDecimal amount;
+
     @Column(nullable = false)
     private BigDecimal balanceLeft;
+
     @Column(nullable = false)
     private Currency currency;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TransactionType type;
