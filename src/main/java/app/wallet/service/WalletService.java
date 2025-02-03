@@ -39,6 +39,7 @@ public class WalletService {
                 .formatted(wallet.getId(), wallet.getBalance()));
 
     }
+    
     public Transaction topUp(UUID walletId, BigDecimal amount){
 
         Wallet wallet = getWalletById(walletId);

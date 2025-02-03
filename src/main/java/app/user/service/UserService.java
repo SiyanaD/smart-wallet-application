@@ -24,7 +24,6 @@ import java.util.UUID;
 //easy for log
 @Slf4j
 @Service
-
 public class UserService {
 
 
@@ -53,6 +52,7 @@ public class UserService {
         if (optionalUser.isEmpty()){
             throw new DomainException("Username or password are incorrect");
         }
+
         User user = optionalUser.get();
 
         if (!passwordEncoder.matches(loginRequest.getPassword(),user.getPassword() ) ){
@@ -66,13 +66,12 @@ public class UserService {
     @Transactional
     public User register(RegisterRequest registerRequest){
 
-        Optional<User> optionalUser = userRepository.findByUsername(registerRequest.getUserName());
+        Optional<User> userOptional = userRepository.findByUsername(registerRequest.getUserName());
 
-        if (optionalUser.isPresent()){
+        if (userOptional.isPresent()){
             throw new DomainException("Username [%s] already exist.".formatted(registerRequest.getUserName()));
-
-
         }
+
         User user = userRepository.save(initilizeUser(registerRequest));
 
 
@@ -82,7 +81,8 @@ public class UserService {
 
         log.info("Successfully create new user account for username[%s] and id [%s]"
                 .formatted(user.getUsername(),user.getId()));
-        return user;
+        return user ;
+
     }
     private User initilizeUser(RegisterRequest registerRequest){
         return User.builder()
