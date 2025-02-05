@@ -53,12 +53,14 @@ public class User {
     private LocalDateTime updatedOn;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "owner")
+    @OrderBy("createdOn DESC ")
     private List<Subscription> subscriptions=new ArrayList<>();
     //=new ArrayList<>() - Ако User няма subscription,
     // полето се инициализира като празен списък вместо null.
 
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "owner")
+    @OrderBy("createdOn ASC ")
     private List<Wallet> wallets=new ArrayList<>();
 
 

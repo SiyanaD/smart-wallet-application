@@ -101,7 +101,7 @@ public class UserService {
     }
 public User getById(UUID id){
         return userRepository.findById(id)
-                .orElseThrow(()->new DomainException("User with id [%s] does not exist."));
+                .orElseThrow(()->new DomainException("User with id [%s] does not exist.".formatted(id)));
 }
 
 }
