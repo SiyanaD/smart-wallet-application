@@ -1,12 +1,11 @@
 package app.user.service;
 
 import app.user.model.Country;
-import app.user.model.User;
 import app.web.dto.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
